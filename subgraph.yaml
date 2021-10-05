@@ -1,0 +1,41 @@
+specVersion: 0.0.2
+description: FTSO
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: RewardEpoch
+    source:
+      address: '0xbfA12e4E1411B62EdA8B035d71735667422A6A9e'
+      abi: IFtsoManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - RewardEpoch
+      abis:
+        - name: IFtsoManager
+          file: ./contracts/userInterfaces/IFtsoManager.json
+      eventHandlers:
+        - event: RewardEpochFinalized(uint256,uint256)
+          handler: handleFinalizedRewardEpoch
+      file: ./mapping.ts
+  - kind: ethereum/contract
+    name: TestCounter
+    source:
+      address: '0xc5738334b972745067fFa666040fdeADc66Cb925'
+      abi: IFtsoRewardManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - TestCounter
+      abis:
+        - name: IFtsoRewardManager
+          file: ./contracts/userInterfaces/IFtsoRewardManager.json
+      eventHandlers:
+        - event: RewardsDistributed(indexed address,uint256,address[],uint256[])
+          handler: handleRewardsDistributed
+      file: ./mapping.ts

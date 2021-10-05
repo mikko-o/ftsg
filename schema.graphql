@@ -1,0 +1,43 @@
+type Delegator @entity {
+  id: ID!
+  address: Bytes!
+  delegated: [PercentageDelegation!] @derivedFrom(field: "delegator")
+  rewards: [DelegatorReward!] @derivedFrom(field: "delegator")
+}
+
+type PercentageDelegation @entity {
+  id: ID!
+  delegator: Delegator! 
+  votePower: BigInt!
+  priceProvider: PriceProvider!
+}
+
+type PriceProvider @entity {
+  id: ID!
+  delegations: [PercentageDelegation!] @derivedFrom(field: "priceProvider")
+  rewards: [PriceProviderReward!] @derivedFrom(field: "priceProvider")
+}
+
+type PriceProviderReward @entity {
+  id: ID!
+  priceProvider: PriceProvider!
+  rewardEpoch: Int!
+  rewards: BigInt!
+}
+
+type DelegatorReward @entity {
+  id: ID!
+  delegator: Delegator!
+  rewardEpoch: Int!
+  rewards: BigInt!
+}
+
+type RewardEpoch @entity {
+  id: ID!
+  number: Int!
+}
+
+type TestCounter @entity {
+  id: ID!
+  count: Int!
+}

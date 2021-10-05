@@ -1,0 +1,10 @@
+{
+  "name": "ftso-subgraph",
+  "version": "1.0.0",
+  "description": "Ftso subgraph",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@graphprotocol/graph-ts": "^0.22.1"
+  }
+}

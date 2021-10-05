@@ -1,0 +1,28 @@
+IFtso
+
+- PriceHashSubmitted
+- PriceRevealed
+
+Claiming: 
+
+IDatavailabilityRewardManager
+- event RewardClaimed(who, to, epoch amount)
+- function claimReward(epochs)
+- getEcpochReward(epoch): (totalEpochReward, claimedEpochReward)
+- getStateOfRewards(beneficiary, epoch): (amount, claimed, claimable)
+
+IFtsoManager:
+- event FtsoAdded
+
+1. Rewards distributed event from reward manager
+- Get ftso
+- Get Epoch Id
+- Get Price provider addresses
+- Get rewards
+
+Actions:
+- Increment provider rewards
+
+2. For each price provider
+- Get delegates with IVPToken.delegatesOfAt(who, blockNumber)
+- Update state of rewards with ftsoRewardManager.getStateOfRewards(beneficiary, rewardEpoch): dataProviders[], rewardAmounts[], claimed, claimable
